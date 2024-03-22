@@ -1,0 +1,20 @@
+{
+  "name": "credential-log-backend-api",
+  "version": "1.0.0",
+  "description": "This is a project to store and display credentials of signed artifacts using express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Miran Kurukulasuriya",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
