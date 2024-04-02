@@ -7,7 +7,9 @@ const {
     updateLogs, 
     deleteLogs
 } = require("../controllers/logController");
+const validateToken = require('../middleware/tokenHandler');
 
+router.use(validateToken);
 router.route("/").get(getLogs).post(createLogs);
 router.route("/:hash").get(getLog);
 
