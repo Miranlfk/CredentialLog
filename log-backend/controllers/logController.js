@@ -11,7 +11,7 @@ const getLogs = asyncHandler(async (req, res) => {
 });
 
 
-//@desc Get a Credential using hash
+//@desc Get a Credential using hash as a key
 //@route GET /api/logs
 //@access private 
 const getLog = asyncHandler(async (req, res) => {
@@ -28,22 +28,29 @@ const getLog = asyncHandler(async (req, res) => {
 //@access private 
 const createLogs = asyncHandler(async (req, res) => {
     console.log("The request body is: ", req.body);
-    const { name, hash, keyName, trustPolicy } = req.body;
-    if (!name || !hash || !keyName || !trustPolicy) {
+    const { name, hash, signedReference, keyName } = req.body;
+    if (!name || !hash || !signedReference || !keyName) {
         res.status(400);
         throw new Error("Please provide all the required fields");
     }
+
+    const credentialAvailable = await Credentials.findOne({ hash });
+    if(credentialAvailable){
+        res.status(400);
+        throw new Error("Credentials already exists");
+    }
+
     const credential = await Credentials.create({
         name,
         hash,
-        keyName,
-        trustPolicy
+        signedReference,
+        keyName
     });
     res.status(200).json({ message: "Credential created: ", credential});
 });
 
 
-//@desc Update a Credential using hash as key
+//@desc Update a Credential using hash as key (it cannot be used to replicate the behaviour of merkle tree)
 //@route PUT /api/logs
 //@access private 
 const updateLogs = asyncHandler(async (req, res) => {
@@ -74,7 +81,7 @@ const updateLogs = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Credential updated: ", updatedCredentials});
 });
 
-//@desc Delete a Credential
+//@desc Delete a Credential using hash as key (its cannot be used to replicate the behaviour of merkle tree)
 //@route DELETE /api/logs
 //@access private 
 const deleteLogs = asyncHandler(async (req, res) => {
