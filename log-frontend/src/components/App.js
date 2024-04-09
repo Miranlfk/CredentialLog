@@ -6,23 +6,10 @@ import Login from './Login';
 import Register from './Register';
 import UploadFile from './UploadFile';
 import CredentialList from './CredentialList';
+import ResultButton from './ResultButton';
 import "./App.css";
 
 function App() {
-  const credentials = [
-      {
-          "name": "Textfile1.txt",
-          "hash": "0x123456",
-          "signedReference": "0xabcdef",
-          "keyName": "key1.pem"
-      },
-      {
-          "name": "Textfile2.txt",
-          "hash": "0x223456",
-          "signedReference": "0xbbcdef",
-          "keyName": "key2.pem"
-      }
-  ];
 
   return (
     <div className="ui container">
@@ -34,7 +21,8 @@ function App() {
                     <Route path="/uploadfile" element={<UploadFile />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/list" element={<CredentialList credentials={credentials} />} />
+                    <Route path="/list" element={<CredentialList />} />
+                    <Route path='/result' element={<ResultButton />} />
                 </Routes>
             </Router>
         </div>

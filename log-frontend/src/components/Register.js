@@ -1,38 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 import 'antd/dist/reset.css';
 import axios from "../api/axios";
 import {
   Form,
   Input,
-  Tooltip,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
 const Register = () => {
 
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
+    const REGST_URL = '/users/register'
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/register', formData);
+            const response = await axios.post(REGST_URL, formData);
             console.log('Registration successful:', response.data);
-            navigate('/login'); // Redirect to new page upon successful login
+            navigate('/login'); // Redirect to login page upon successful registration
         } catch (error) {
             console.error('Registration failed:', error);
+            navigate('/register'); // Redirect to registration page upon unsuccessful registration
         }
     };
 

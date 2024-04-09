@@ -12,14 +12,16 @@ export default function Login() {
     
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
+    const LOGIN_URL = '/users/login'
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/users/login/', formData);
+            const response = await axios.post(LOGIN_URL, formData);
             console.log('Login successful:', response.data);
-            navigate('/uploadfile'); // Redirect to new page upon successful login
+            navigate('/uploadfile'); // Redirect to fileupload page upon successful login
         } catch (error) {
             console.error('Login failed:', error);
+            navigate('/login'); // Redirect to login page upon unsuccessful login
         }
     };
 
@@ -32,10 +34,6 @@ export default function Login() {
         }));
     };
 
-    // const onFinish = (values) => {
-    //     const { email, password } = values;
-    
-    // };
     return (
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
             <div style={{width:400}}>
@@ -53,7 +51,7 @@ export default function Login() {
                     rules={[
                     {
                         required: true,
-                        message: 'Please input your Username!',
+                        message: 'Please input your Email!',
                     },
                     ]}
                 >

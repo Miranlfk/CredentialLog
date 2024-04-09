@@ -8,22 +8,23 @@ const UploadFile = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission
+    const UPLOAD_URL = '/file';
   
     try {
       if (!file) {
         console.error('No file selected');
         return;
       }
-   // Log the hash value
+
       const arrayBuffer = await readFileAsync(file);
       console.log('File content:', arrayBuffer);
 
-      const formData = new FormData(); // Create FormData object
+      const formData = new FormData(); // Create FormData object to store file
       formData.append('file', file);
-      console.log('Form Data:', formData); // Log the payload object
+      console.log('Form Data:', formData);
   
       try {
-        const response = await axios.post('http://localhost:8000/api/file', formData, {
+        const response = await axios.post(UPLOAD_URL, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -33,18 +34,20 @@ const UploadFile = () => {
         const hash = credential.hash;
         console.log('Hash:', hash);
         if (!hash){
-          navigate('/uploadfile');
+          console.error('No hash value');
         } else{
           const res = await axios.get(`http://localhost:8000/api/logs/${hash}`);
           console.log('Log:', res.data);
           const credentials = res.data.credentials; 
           console.log('Log:', credentials);
-          navigate('/list');
+          navigate('/result', { state: { sentVariable: credentials } });
         }
       } catch (error) {
         console.error('Error uploading file:', error);
         // Handle error response from the backend
         console.error('Error response:', error.response.data);
+        const value = "";
+        navigate('/result', { state: { sentVariable: value }} );
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -78,7 +81,7 @@ const UploadFile = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="ui button blue">Upload</button>
+        <button type="submit" className="ui button blue">Verify</button>
       </form>
     </div>
   );
