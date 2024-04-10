@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");    
 const User = require("../models/userModel");
+const path = require("path");
 
 //@desc Register a user
 //@route POST /api/users/register
@@ -23,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         password: hashedPassword,
+        refreshToken: ""
     });
     console.log("User: ", user);
     if (user) {
@@ -52,7 +54,17 @@ const loginUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 _id: user._id 
             },
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d"});
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s"});//5mins
+        const refreshToken = jwt.sign({ 
+            user: {
+                username: user.username,
+                email: user.email,
+                _id: user._id 
+            },
+        }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d"});
+        user.refreshToken = refreshToken;
+        await user.save();
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24*60*60*1000 })
         res.status(200).json({ accessToken });
     }
     else{
@@ -60,6 +72,32 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new Error("Invalid email or password");
     }
 });
+
+//@desc Logout user
+//@route GET /api/users/logout
+//t
+
+const logoutUser = async (req, res) => {
+    //On client side, delete the accesstoken
+    const cookies = req.cookies;
+    if(!cookies?.jwt){
+        res.send(401).json({ message: "User is already logged out"});
+    }
+    const refreshToken = cookies.jwt;
+    //is refreshToken in USer DB
+    const user = await User.findOne({ refreshToken });
+    if(!user){
+        res.clearCookie("jwt", { httpOnly: true, sameSite: 'None', secure: true });
+        res.status(204).json({ message: "User is already logged out"});
+    }
+    user.refreshToken = "";
+    await user.save();
+    res.clearCookie("jwt", { httpOnly: true, sameSite: 'None', secure: true });
+    res.status(200).json({ message: "User logged out"});
+}
+
+
+// });
 
 //@desc Current user info
 //@route GET /api/users/current
@@ -69,4 +107,4 @@ const currentUser = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { registerUser, loginUser, currentUser};
+module.exports = { registerUser, loginUser, currentUser, logoutUser};

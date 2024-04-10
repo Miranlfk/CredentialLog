@@ -6,10 +6,8 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from "../api/axios";
 
-
-
 export default function Login() {
-    
+
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
     const LOGIN_URL = '/users/login'
@@ -21,7 +19,7 @@ export default function Login() {
             navigate('/uploadfile'); // Redirect to fileupload page upon successful login
         } catch (error) {
             console.error('Login failed:', error);
-            navigate('/login'); // Redirect to login page upon unsuccessful login
+            navigate('/register'); // Redirect to login page upon unsuccessful login
         }
     };
 
@@ -37,7 +35,7 @@ export default function Login() {
     return (
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
             <div style={{width:400}}>
-            <h1 style={{textAlign:"center"}}>Login</h1>
+            <h1 style={{textAlign:"center"}}>Sign In</h1>
             <Form
                 name="normal_login"
                 className="login-form"

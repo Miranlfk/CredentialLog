@@ -54,12 +54,7 @@ const createLogs = asyncHandler(async (req, res) => {
 //@route PUT /api/logs
 //@access private 
 const updateLogs = asyncHandler(async (req, res) => {
-    // if (req.body.hasOwnProperty('hash')) {
-    //     // Log unauthorized attempt to update hash field
-    //     console.error('Unauthorized attempt to update field.');
-    //     res.status(403);
-    //     throw new Error("Unauthorized attempt to update field.");
-    // }
+    
     if (Object.keys(req.body).length > 0) {
         // Log unauthorized attempt to update fields
         console.error("Unauthorized attempt to update fields");
