@@ -2,8 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");    
 const User = require("../models/userModel");
 
-
-
+//Verify refreshToken and generate new accessToken
 const handleRefreshToken = (req, res) => {
     const cookies = req.cookies;
     if(!cookies?.jwt){
@@ -28,7 +27,7 @@ const handleRefreshToken = (req, res) => {
                 email: user.email,
                 _id: user._id 
             },
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s"});//5mins
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m"});//5mins
         res.status(200).json({ accessToken });
     });
 }

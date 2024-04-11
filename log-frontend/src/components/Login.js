@@ -34,8 +34,8 @@ export default function Login() {
 
     return (
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-            <div style={{width:400}}>
-            <h1 style={{textAlign:"center"}}>Sign In</h1>
+            <div style={{width:400, marginTop:50}}>
+            <h1 style={{textAlign:"center", color: "white"}}>Sign In</h1>
             <Form
                 name="normal_login"
                 className="login-form"

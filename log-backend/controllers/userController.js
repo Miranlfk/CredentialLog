@@ -54,7 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 _id: user._id 
             },
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s"});//5mins
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m"});//5mins
         const refreshToken = jwt.sign({ 
             user: {
                 username: user.username,
@@ -75,8 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 //@desc Logout user
 //@route GET /api/users/logout
-//t
-
+//@access private
 const logoutUser = async (req, res) => {
     //On client side, delete the accesstoken
     const cookies = req.cookies;
@@ -95,9 +94,6 @@ const logoutUser = async (req, res) => {
     res.clearCookie("jwt", { httpOnly: true, sameSite: 'None', secure: true });
     res.status(200).json({ message: "User logged out"});
 }
-
-
-// });
 
 //@desc Current user info
 //@route GET /api/users/current

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
 
 const ResultButton = () => {
     const location = useLocation();
@@ -24,9 +25,10 @@ const ResultButton = () => {
     };
 
     return (
-        <button style={{ backgroundColor: hashValue ? 'green' : 'red' }} onClick={hashValue ? redirectToCredentials : redirectToReUpload}>
-        {hashValue ? 'Credentials' : 'No Credentials'}
-        </button>
+        <Button type="primary" htmlType="submit" className="login-form-button" style={{ marginTop:200, backgroundColor: hashValue ? 'green' : 'red' }} size="large" onClick={hashValue ? redirectToCredentials : redirectToReUpload}>
+            {hashValue ? 'Credentials' : 'No Credentials'}
+        </Button>
+
     );
     };
 

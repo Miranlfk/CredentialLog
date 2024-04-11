@@ -7,7 +7,7 @@ const {
     updateLogs, 
     deleteLogs
 } = require("../controllers/logController");
-const validateToken = require('../middleware/tokenHandler');
+// const validateToken = require('../middleware/tokenHandler');
 const refreshTokenController = require('../controllers/refreshTokenController');
 
 //All the Routes related to Credentials use Tokens and will be private.
@@ -19,10 +19,5 @@ router.route("/:hash").get(getLog, refreshTokenController.handleRefreshToken,);
 
 // PUT and DELETE requests will not be utilized in the application to replicate behaviour of merkle tree.
 router.route("/:hash").put(updateLogs).delete(deleteLogs);
-
-
-
-
-
 
 module.exports = router;

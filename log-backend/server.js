@@ -35,9 +35,6 @@ app.use("/api/file", require("./routes/fileRoute"));
 // app.use("/api/refresh", require("./routes/refresh"));
 app.use("/api/logs", require("./routes/logsRoute"));
 
-
-
-
 //Custom Error Handler
 app.use(errorHandler);
 

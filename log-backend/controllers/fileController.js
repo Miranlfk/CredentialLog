@@ -25,7 +25,7 @@ const uploadLog = asyncHandler(async (req, res) => {
 
 //@desc Get a Credential using hash as a key
 //@route GET /api/file/:hash
-//@access private 
+//@access public 
 const getLog = asyncHandler(async (req, res) => {
     const credentials = await Uploads.find({ hash: req.params.hash});
     if (!credentials || credentials.length === 0) {

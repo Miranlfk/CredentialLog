@@ -5,11 +5,11 @@ const Layout = () => {
   return (
     <>
       <nav>
-        <Button type="primary" htmlType="submit" className="registration-form-button"style={{marginRight:25, marginTop:150}}>
+        <Button type="primary" htmlType="submit" className="registration-form-button"style={{marginRight:25, marginTop:200}} size="large">
             <Link to="/register">Register</Link>
         </Button>
 
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button type="primary" htmlType="submit" className="login-form-button" size="large">
             <Link to="/login">Login</Link>
         </Button>
       </nav>

@@ -38,7 +38,7 @@ const Register = () => {
     return(
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
             <div style={{width:400, marginTop:75}}>
-                <h1 style={{textAlign:"center"}}>Register</h1>
+                <h1 style={{textAlign:"center", color:'white'}}>Register</h1>
                 <Form
                     name="normal_registration"
                     className="registration-form"
@@ -48,8 +48,10 @@ const Register = () => {
                     onFinish={handleSubmit}
                 >
                     <Form.Item
+                        style={{color:'white'}}
                         name="username"
                         label="Username"
+                        
                         rules={[
                         {
                             required: true,
@@ -62,6 +64,7 @@ const Register = () => {
                     <Form.Item
                         name="email"
                         label="E-mail"
+                        style={{color:'white'}}
                         rules={[
                         {
                             type: 'email',
@@ -79,6 +82,7 @@ const Register = () => {
                     <Form.Item
                         name="password"
                         label="Password"
+                        style={{color:'white'}}
                         rules={[
                         {
                             required: true,
@@ -93,6 +97,7 @@ const Register = () => {
                     <Form.Item
                         name="confirm"
                         label="Confirm Password"
+                        style={{color:'white'}}
                         dependencies={['password']}
                         hasFeedback
                         rules={[
@@ -116,8 +121,10 @@ const Register = () => {
                         <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                         Register
+                        </Button >
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{marginLeft:20}}>
+                            <a href="/login">Login</a>
                         </Button>
-                        Or <a href="/login">Login</a>
                     </Form.Item>
             </Form>
             </div>

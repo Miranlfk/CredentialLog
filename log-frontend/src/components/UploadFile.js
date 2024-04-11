@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
 
 const UploadFile = () => {
   const [file, setFile] = useState({});
@@ -71,17 +72,19 @@ const UploadFile = () => {
 
   return (
     <div className="ui main">
-      <h2>Upload File</h2>
+      <h2 style={{color:'white'}}>Upload File</h2>
       <form className="ui form" onSubmit={handleSubmit}>
         <div className="field">
-          <label>File</label>
+          <label style={{color:'white'}}>File</label>
           <input
             type="file"
             name="file"
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="ui button blue">Verify</button>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Verify
+        </Button>
       </form>
     </div>
   );
