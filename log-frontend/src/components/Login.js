@@ -1,3 +1,4 @@
+//Login component utilizing ant design form and input components to allow user to input email and password
 import React from "react";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ export default function Login() {
             navigate('/uploadfile'); // Redirect to fileupload page upon successful login
         } catch (error) {
             console.error('Login failed:', error);
-            navigate('/register'); // Redirect to login page upon unsuccessful login
+            navigate('/login'); // Redirect to login page upon unsuccessful login
         }
     };
 

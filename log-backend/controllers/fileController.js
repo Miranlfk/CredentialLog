@@ -1,3 +1,5 @@
+//Provides Logic for File upload and retrieval from File Database
+
 const asyncHandler = require("express-async-handler");
 const Uploads = require("../models/uploadModel");
 const multer = require('multer');

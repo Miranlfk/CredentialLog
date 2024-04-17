@@ -1,3 +1,4 @@
+//Component to provide the result of the uploaded file and provide buttons to navigate to the credentials page or re-upload the file
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
@@ -17,11 +18,11 @@ const ResultButton = () => {
     }
    
     const redirectToCredentials = () => {
-        navigate('/list', { state: { sentVariable: credentials }}); // Change '/credentials' to your desired route
+        navigate('/list', { state: { sentVariable: credentials }}); 
     };
 
     const redirectToReUpload = () => {
-        navigate('/uploadfile'); // Change '/credentials' to your desired route
+        navigate('/uploadfile'); 
     };
 
     return (

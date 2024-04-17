@@ -1,3 +1,5 @@
+//Component which provides default layout for the application, in this instance the home page contains buttons to register and sign in
+
 import { Outlet, Link } from "react-router-dom";
 import { Button } from 'antd';
 

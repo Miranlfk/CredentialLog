@@ -11,6 +11,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 // Get the current user using the token obtained when logging in
 router.get("/current", refreshTokenController.handleRefreshToken, validateToken, currentUser);
+// Refresh the token
 router.get("/refresh", refreshTokenController.handleRefreshToken);
 // Logout the user
 router.get("/logout", logoutUser);

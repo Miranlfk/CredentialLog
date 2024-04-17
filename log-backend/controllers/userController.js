@@ -1,3 +1,5 @@
+//User Controller to handle user registration, login, logout and current user info
+
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");    

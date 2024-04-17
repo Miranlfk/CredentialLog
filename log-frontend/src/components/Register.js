@@ -1,3 +1,4 @@
+//Register component for the application using ant design which utilizes form to handle user registration
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'antd/dist/reset.css';

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');   
 
-//Schema for the credentials collection in MongoDB using Mongoose
+//Schema for the file collection in MongoDB using Mongoose
 const uploadSchema = new mongoose.Schema({
     name: {
         type: String, // Changed type to Buffer

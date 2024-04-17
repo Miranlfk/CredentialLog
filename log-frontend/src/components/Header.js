@@ -1,3 +1,4 @@
+//This applications header component
 import React from "react";
 
 const Header = () => {

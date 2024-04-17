@@ -1,3 +1,4 @@
+//Component to map the list of credentials to the CredentialSet component to display the credential details
 import React from "react";
 import { useLocation } from 'react-router-dom';
 import CredentialSet from "./CredentialSet";

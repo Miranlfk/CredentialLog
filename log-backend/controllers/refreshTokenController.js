@@ -1,3 +1,5 @@
+//Controller to handle refreshing tokens for user
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");    
 const User = require("../models/userModel");

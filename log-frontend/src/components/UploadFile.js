@@ -1,3 +1,4 @@
+//Component to upload file/artifact to be verified
 import React, { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from 'react-router-dom';

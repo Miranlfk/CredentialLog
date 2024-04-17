@@ -1,3 +1,4 @@
+//Provides configuration for CORS
 const allowedOrigins = require('./allowedOrigins');
 
 const corsOptions = {

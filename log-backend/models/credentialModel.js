@@ -17,6 +17,10 @@ const credentialSchema = new mongoose.Schema({
     keyName: {
         type: String,
         required: [true, "Please provide a key name"]
+    },
+    signAgent: {
+        type: String,
+        required: [true, "Please provide a key name"]
     }
     },
     {

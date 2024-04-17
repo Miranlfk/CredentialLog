@@ -1,3 +1,4 @@
+//Custom hook to access the Axios instance with the Authorization header and refreshes if token has expired
 import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import useRefreshToken from "./UseRefreshToken";

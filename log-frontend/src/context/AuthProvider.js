@@ -1,3 +1,4 @@
+//component used to share authentication state across components using React's context api
 import { createContext, useState } from "react";
 
 const AuthContext = createContext({});
