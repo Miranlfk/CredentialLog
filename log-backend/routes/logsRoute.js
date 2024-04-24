@@ -13,7 +13,8 @@ const validateToken = require('../middleware/tokenHandler');
 const refreshTokenController = require('../controllers/refreshTokenController');
 
 
-router.route("/").get(getLogs).post(validateToken, createLogs);
+router.route("/").get(validateToken, getLogs).post(validateToken, createLogs);
+// router.route("/").get(validateToken, getLogs).post(createLogs);
 
 // GET request to get a specific log using hash as it is unique and will be used as a key when user uploads a file for verification.
 router.route("/:hash").get(getLog);

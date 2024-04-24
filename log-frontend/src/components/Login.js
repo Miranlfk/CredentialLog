@@ -21,6 +21,7 @@ export default function Login() {
         } catch (error) {
             console.error('Login failed:', error);
             navigate('/login'); // Redirect to login page upon unsuccessful login
+            window.location.reload();
         }
     };
 
