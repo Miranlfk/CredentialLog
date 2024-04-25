@@ -31,8 +31,8 @@ const getLog = asyncHandler(async (req, res) => {
 //@access private 
 const createLogs = asyncHandler(async (req, res) => {
     console.log("The request body is: ", req.body);
-    const { name, hash, signedReference, keyName, signAgent } = req.body;
-    if (!name || !hash || !signedReference || !keyName || !signAgent) {
+    const { name, hash, signedReference, keyName, signAgent, file, keyFile } = req.body;
+    if (!name || !hash || !signedReference || !keyName || !signAgent || !file || !keyFile) {
         res.status(400);
         throw new Error("Please provide all the required fields");
     }
@@ -48,7 +48,9 @@ const createLogs = asyncHandler(async (req, res) => {
         hash,
         signedReference,
         keyName,
-        signAgent
+        signAgent,
+        file,
+        keyFile
     });
     res.status(200).json({ message: "Credential created: ", credential});
 });

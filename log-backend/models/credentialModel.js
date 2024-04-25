@@ -20,7 +20,15 @@ const credentialSchema = new mongoose.Schema({
     },
     signAgent: {
         type: String,
-        required: [true, "Please provide a key name"]
+        required: [true, "Please provide a signature agent"]
+    },
+    file: {
+        type: String,
+        required: [true, "Please provide a file"]
+    },
+    keyFile: {
+        type: String,
+        required: [true, "Please provide a key"]
     }
     },
     {
