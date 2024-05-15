@@ -27,25 +27,10 @@ type KeyFilePayload struct {
 	KeyFile string `json:"keyFile"`
 }
 
-func main() {
-	// Define the endpoint for verifying the file
-	http.HandleFunc("/api/verify-file", verifyFileHandler)
-
-	// Define the endpoint for downloading the public key
-	http.HandleFunc("/api/download-public-key", downloadPublicKeyHandler)
-
-	// Use CORS middleware to allow requests from http://localhost:3000
-	handler := cors.AllowAll().Handler(http.DefaultServeMux)
-
-	// Start the HTTP server with CORS middleware
-	fmt.Println("Server listening on port 8080...")
-	http.ListenAndServe(":8080", handler)
-}
 
 func verifyFileHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
-		// Parse the JSON body
 		var payload FileVerificationPayload
 		if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
@@ -85,7 +70,6 @@ func verifyFileHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Verification successful
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintln(w, "File verification successful")
 
@@ -98,14 +82,12 @@ func verifyFileHandler(w http.ResponseWriter, r *http.Request) {
 func downloadPublicKeyHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
-		// Parse the JSON body
 		var payload KeyFilePayload
 		if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			fmt.Fprintf(w, "Error parsing JSON body: %v", err)
 			return
 		}
-
 		// Decode the base64-encoded public key data
 		decodedKeyData, err := base64.StdEncoding.DecodeString(payload.KeyFile)
 		if err != nil {
@@ -113,11 +95,9 @@ func downloadPublicKeyHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "Error decoding base64 key data: %v", err)
 			return
 		}
-
 		// Set response headers for file download
 		w.Header().Set("Content-Disposition", "attachment; filename=public_key.pem")
 		w.Header().Set("Content-Type", "application/octet-stream")
-
 		// Write the decoded public key data to the response
 		w.Write(decodedKeyData)
 
@@ -134,13 +114,11 @@ func retrieveFileData(hash string) ([]byte, error) {
 		return nil, fmt.Errorf("error making API call: %v", err)
 	}
 	defer resp.Body.Close()
-
 	// Check the response status code
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API call failed: %s", resp.Status)
 	}
 
-	// Read the response body
 	fileData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("error reading response body: %v", err)
@@ -149,20 +127,18 @@ func retrieveFileData(hash string) ([]byte, error) {
 	return fileData, nil
 }
 
-// parsePublicKey parses RSA public key from bytes
+// parsePublicKey function parses RSA public key from bytes
 func parsePublicKey(publicKeyBytes []byte) (*rsa.PublicKey, error) {
     block, _ := pem.Decode(publicKeyBytes)
     if block == nil {
         return nil, fmt.Errorf("failed to parse PEM block containing the public key")
     }
-
-    // Attempt to parse the public key using ParsePKIXPublicKey
+    // Parse the public key using ParsePKIXPublicKey
     publicKeyInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
     if err != nil {
         return nil, fmt.Errorf("failed to parse public key: %w", err)
     }
 
-    // Type assert the parsed public key to *rsa.PublicKey
     publicKey, ok := publicKeyInterface.(*rsa.PublicKey)
     if !ok {
         return nil, fmt.Errorf("failed to convert public key to RSA public key")
@@ -195,7 +171,6 @@ func verifyFile(fileData []byte, publicKey *rsa.PublicKey) error {
 		}
 	}
 
-	// Debugging: Print extracted hash and signature to verify correctness
 	hashString := hex.EncodeToString(hash[:])
 	fmt.Println("Extracted Hash:", hashString)
 
@@ -213,7 +188,22 @@ func verifyFile(fileData []byte, publicKey *rsa.PublicKey) error {
 	// Verify the hash against the calculated hash using the public key
 	err := rsa.VerifyPKCS1v15(publicKey, crypto.SHA256, hash[:], signature)
 	if err != nil {
-		return fmt.Errorf("verification failed: %v")
+		return fmt.Errorf("verification failed: %v", err) 
 	}
 	return nil
+}
+
+func main() {
+	//The endpoint for verifying the file
+	http.HandleFunc("/api/verify-file", verifyFileHandler)
+
+	// The endpoint for downloading the public key
+	http.HandleFunc("/api/download-public-key", downloadPublicKeyHandler)
+
+	// Use CORS middleware to allow requests from http://localhost:3000
+	handler := cors.AllowAll().Handler(http.DefaultServeMux)
+
+	// Start the HTTP server with CORS middleware
+	fmt.Println("Server listening on port 8080...")
+	http.ListenAndServe(":8080", handler)
 }

@@ -1,3 +1,4 @@
+//Component to Display the credential details, download the public key and verify the file
 import React, { useState } from "react";
 import { Button } from "antd";
 import axios from "axios";
@@ -5,7 +6,7 @@ import axios from "axios";
 const CredentialSet = (props) => {
   const { name, hash, signedReference, keyName, signAgent, keyFile } = props.credentials;
   const [verificationStatus, setVerificationStatus] = useState(null);
-
+  //Call the verify file API to verify the file with the hash and key file
   const verifyFile = async () => {
     try {
       const URL = "http://localhost:8080/api/verify-file";
@@ -37,7 +38,7 @@ const CredentialSet = (props) => {
       return null;
     }
   };
-
+//Call the download key API to download the public key
   const downloadKey = async () => {
     try {
       const URL = "http://localhost:8080/api/download-public-key";
@@ -79,7 +80,7 @@ const CredentialSet = (props) => {
       </div>
       <div>
         <Button type="primary" htmltype="submit" className="login-form-button" style={{ marginTop: 20, marginLeft: 25 }} size="large" onClick={downloadKey}>Download</Button>
-        <Button type="primary" htmltype="submit" className="login-form-button" style={{ marginTop: 20, backgroundColor: 'green', marginLeft: 260 }} size="large" onClick={verifyFile}>Verify</Button>
+        <Button type="primary" htmltype="submit" className="login-form-button" style={{ marginTop: 20, backgroundColor: 'green', marginLeft: 250 }} size="large" onClick={verifyFile}>Verify</Button>
         {verificationStatus && <div style={{ marginTop: 10, textAlign: "center" }}>{handleVerificationText()}</div>}
       </div>
     </ul>

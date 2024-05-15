@@ -3,7 +3,6 @@ import React from "react";
 import { useLocation } from 'react-router-dom';
 import CredentialSet from "./CredentialSet";
 
-
 const CredentialList = () => {
   const location = useLocation();
   const retrievedCredentials = location.state.sentVariable; //retrieve the credentials from the location state
